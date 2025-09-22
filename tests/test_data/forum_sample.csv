@@ -1,0 +1,4 @@
+id,forum,original_title,original_post,cluster,LLM_inferred_question,umap_1,umap_2,umap_3
+test_1,cervical,Test Title 1,Test post content 1,1,Question 1?,0.1,0.4,0.7
+test_2,cervical,Test Title 2,Test post content 2,2,Question 2?,0.2,0.5,0.8
+test_3,ovarian,Test Title 3,Test post content 3,3,Question 3?,0.3,0.6,0.9

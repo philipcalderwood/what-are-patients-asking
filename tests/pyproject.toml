@@ -1,0 +1,98 @@
+[tool.pytest.ini_options]
+# Pytest Configuration for MRPC
+
+# Test discovery
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Minimum version
+minversion = "7.0"
+
+# Add project root and src to Python path
+pythonpath = [".", "src"]
+
+# Default options
+addopts = [
+    "--strict-markers",
+    "--strict-config", 
+    "--verbose",
+    "--tb=short",
+    "--cov=.",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-branch",
+]
+
+# Test markers for categorization
+markers = [
+    "unit: marks tests as unit tests (fast, isolated)",
+    "integration: marks tests as integration tests (slower, multi-component)",
+    "system: marks tests as system tests (slowest, full system)",
+    "auth: marks tests related to authentication",
+    "database: marks tests related to database operations", 
+    "upload: marks tests related to file upload functionality",
+    "ui: marks tests related to UI components",
+    "performance: marks tests that measure performance",
+    "benchmark: marks tests that use pytest-benchmark for performance measurement",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "requires_db: marks tests that require database setup",
+    "requires_network: marks tests that require network access",
+]
+
+# Filtering options
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+# Dash testing configuration
+[tool.pytest_dash]
+# Exclude Opera browser as it's no longer supported in newer Selenium versions
+browser_choices = ["Chrome", "Firefox", "Edge"]
+
+# Logging
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(name)s: %(message)s"
+
+[tool.coverage.run]
+# Coverage configuration for pytest-cov
+source = ["."]
+omit = [
+    "tests/*",
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/.venv/*",
+    "setup.py",
+    "*/site-packages/*",
+    "exploratory/*",
+    "scraping/*",
+    "deployment/*",
+    "db/*",
+]
+branch = true
+
+[tool.coverage.report]
+# Coverage reporting configuration
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+ignore_errors = true
+show_missing = true
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"
